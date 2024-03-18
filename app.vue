@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <Title>Talentics Assets Doc</Title>
+  </Head>
   <div id="root">
     <sidebar />
     <div style="width: 100%;">

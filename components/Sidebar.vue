@@ -6,6 +6,8 @@
     <p class="header">Assets</p>
     <p :class="`subheader ${activeRoute('icons') ? 'active' : ''}`" @click="goToPage('icons')">Icons</p>
     <p :class="`subheader ${activeRoute('illustrations') ? 'active' : ''}`" @click="goToPage('illustrations')">Illustrations</p>
+    <p :class="`subheader ${activeRoute('colored-icons') ? 'active' : ''}`" @click="goToPage('colored-icons')">Colored Icons</p>
+    <p :class="`subheader ${activeRoute('icon-illustrations') ? 'active' : ''}`" @click="goToPage('icon-illustrations')">Icon Illustrations</p>
   </div>
 </template>
 

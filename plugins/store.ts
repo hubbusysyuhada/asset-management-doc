@@ -6,7 +6,9 @@ import svgResize from "~/helpers/svgResize";
 export type Version = {
   version: string;
   icons: Asset[];
-  illustrations: Asset[]
+  illustrations: Asset[];
+  coloredIcons?: Asset[];
+  iconIllustrations?: Asset[];
 }
 
 export type Asset = {
@@ -36,12 +38,28 @@ const store = createStore<RootState>({
       })
       return icons
     },
+    allColoredIcons(state) {
+      const coloredIcons: Array<Asset & { preview: string }> = []
+      const stored = state.versions[state.currentVersionIndex].coloredIcons || []
+      stored.forEach(i => {
+        coloredIcons.push({ ...i, html: svgResize(i.html, '60px'), preview: svgResize(i.html, '50%') })
+      })
+      return coloredIcons
+    },
     allIllustrations(state) {
       const illustrations: Array<Asset & { preview: string }> = []
       state.versions[state.currentVersionIndex].illustrations.forEach(i => {
         illustrations.push({ ...i, html: svgResize(i.html, '175px'), preview: svgResize(i.html, '100%') })
       })
       return illustrations
+    },
+    allIconIllustrations(state) {
+      const iconIllustrations: Array<Asset & { preview: string }> = []
+      const stored = state.versions[state.currentVersionIndex].iconIllustrations || []
+      stored.forEach(i => {
+        iconIllustrations.push({ ...i, html: svgResize(i.html, '60px'), preview: svgResize(i.html, '50%') })
+      })
+      return iconIllustrations
     },
   },
   mutations: {
