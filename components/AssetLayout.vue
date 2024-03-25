@@ -99,7 +99,7 @@ export default {
   components: { Modal },
   props: {
     assetType: {
-      type: String as PropType<'icons' | 'illustrations' | 'colored-icons' | 'icon-illustrations'>,
+      type: String as PropType<'icons' | 'illustrations' | 'special-icons' | 'icon-illustrations'>,
       default: 'icons'
     }
   },
@@ -113,15 +113,13 @@ export default {
         case 'illustrations':
           return this.$store.getters.allIllustrations as Array<Asset & { preview: string }>
           break;
-        case 'colored-icons':
-          return this.$store.getters.allColoredIcons as Array<Asset & { preview: string }>
+        case 'special-icons':
+          return this.$store.getters.allSpecialIcons as Array<Asset & { preview: string }>
           break;
         default:
           return this.$store.getters.allIconIllustrations as Array<Asset & { preview: string }>
           break;
       }
-      // if (this.assetType === 'icons') return this.$store.getters.allIcons as Array<Asset & { preview: string }>
-      //   return this.$store.getters.allIllustrations as Array<Asset & { preview: string }>
     },
     filtered() {
       if (this.keywords) return this.allAssets.filter(i => i.class.includes(this.keywords) || this.parseDisplayTagName(i.tag).includes(this.keywords))

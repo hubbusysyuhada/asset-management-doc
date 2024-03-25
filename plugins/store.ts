@@ -1,14 +1,14 @@
 import { createStore } from "vuex";
 import { defineNuxtPlugin } from 'nuxt/app'
-import changelogs from 'talentics-assets/changelog.json'
+import c from '@/changelog.json'
 import svgResize from "~/helpers/svgResize";
 
 export type Version = {
   version: string;
   icons: Asset[];
   illustrations: Asset[];
-  coloredIcons?: Asset[];
-  iconIllustrations?: Asset[];
+  specialIcons: Asset[];
+  iconIllustrations: Asset[];
 }
 
 export type Asset = {
@@ -21,6 +21,8 @@ export type RootState = {
   versions: Version[];
   currentVersionIndex: number;
 }
+
+const changelogs = c as Version[]
 
 const store = createStore<RootState>({
   state: {
@@ -38,13 +40,13 @@ const store = createStore<RootState>({
       })
       return icons
     },
-    allColoredIcons(state) {
-      const coloredIcons: Array<Asset & { preview: string }> = []
-      const stored = state.versions[state.currentVersionIndex].coloredIcons || []
+    allSpecialIcons(state) {
+      const specialIcons: Array<Asset & { preview: string }> = []
+      const stored = state.versions[state.currentVersionIndex].specialIcons || []
       stored.forEach(i => {
-        coloredIcons.push({ ...i, html: svgResize(i.html, '60px'), preview: svgResize(i.html, '50%') })
+        specialIcons.push({ ...i, html: svgResize(i.html, '60px'), preview: svgResize(i.html, '50%') })
       })
-      return coloredIcons
+      return specialIcons
     },
     allIllustrations(state) {
       const illustrations: Array<Asset & { preview: string }> = []
