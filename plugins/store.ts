@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { defineNuxtPlugin } from 'nuxt/app'
-import c from '@/changelog.json'
+import changelogs from "~/changelog";
 import svgResize from "~/helpers/svgResize";
 
 export type Version = {
@@ -21,8 +21,6 @@ export type RootState = {
   versions: Version[];
   currentVersionIndex: number;
 }
-
-const changelogs = c as Version[]
 
 const store = createStore<RootState>({
   state: {
