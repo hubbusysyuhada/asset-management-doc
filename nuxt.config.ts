@@ -13,7 +13,12 @@ const config: NuxtConfig = {
         }
       }
     }],
-  ]
+  ],
+  runtimeConfig: {
+    public: {
+      BUCKET_URL: process.env.BUCKET_URL
+    }
+  }
 }
 
 export default config

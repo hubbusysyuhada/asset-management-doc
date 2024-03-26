@@ -4,10 +4,10 @@
     <p :class="`subheader ${activeRoute('javascript') ? 'active' : ''}`" @click="goToPage('javascript')">Vanilla Javascript</p>
     <p :class="`subheader ${activeRoute('vue') ? 'active' : ''}`" @click="goToPage('vue')">Vue</p>
     <p class="header">Assets</p>
-    <p :class="`subheader ${activeRoute('icons') ? 'active' : ''}`" @click="goToPage('icons')">Icons</p>
-    <p :class="`subheader ${activeRoute('illustrations') ? 'active' : ''}`" @click="goToPage('illustrations')">Illustrations</p>
-    <p :class="`subheader ${activeRoute('special-icons') ? 'active' : ''}`" @click="goToPage('special-icons')">Special Icons</p>
-    <p :class="`subheader ${activeRoute('icon-illustrations') ? 'active' : ''}`" @click="goToPage('icon-illustrations')">Icon Illustrations</p>
+    <p :class="`subheader ${activeRoute('icon-system') ? 'active' : ''}`" @click="goToPage('icon-system')">Icon System</p>
+    <p :class="`subheader ${activeRoute('illustration-asset') ? 'active' : ''}`" @click="goToPage('illustration-asset')">Illustration Asset</p>
+    <p :class="`subheader ${activeRoute('special-case-icon') ? 'active' : ''}`" @click="goToPage('special-case-icon')">Special Icon Case</p>
+    <p :class="`subheader ${activeRoute('icon-illustration') ? 'active' : ''}`" @click="goToPage('icon-illustration')">Icon Illustration</p>
   </div>
 </template>
 

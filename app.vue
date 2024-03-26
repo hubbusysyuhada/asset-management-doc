@@ -2,7 +2,7 @@
   <Head>
     <Title>Talentics Assets Doc</Title>
   </Head>
-  <div id="root">
+  <div v-if="$store.state.isInitiated" id="root">
     <sidebar />
     <div style="width: 100%;">
       <div id="top-navbar">
@@ -17,17 +17,21 @@
       </div>
     </div>
   </div>
+  <div v-else id="root-loading">
+    <Loader/>
+  </div>
 </template>
 
 <script lang="ts">
-import Sidebar from './components/Sidebar.vue';
+import Sidebar from '@/components/Sidebar.vue';
+import Loader from '@/components/Loader.vue';
 import Github from 'talentics-assets/icons/Github.vue'
 
 import Npm from 'talentics-assets/icons/Npm.vue'
 
 export default {
   name: "Root",
-  components: { Sidebar, Github, Npm },
+  components: { Sidebar, Github, Npm, Loader },
   methods: {
     goToGithubRepo: () => window.open("https://github.com/hubbusysyuhada/asset-management", "_blank"),
     goToNpm: () => window.open("https://www.npmjs.com/package/talentics-assets", "_blank"),
@@ -41,6 +45,7 @@ export default {
   beforeMount() {
     const version = this.$route.query.version || ''
     this.$store.dispatch('validateVersion', { version, redirect: () => this.$router.push(this.$route.path) })
+    this.$store.dispatch('fetchVersion')
   },
   computed: {
     versions() {
@@ -63,6 +68,13 @@ p, h1, h2, h3, h4, h5 {
 #root {
   display: flex;
   flex-direction: row;
+  height: 100vh;
+}
+
+#root-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
