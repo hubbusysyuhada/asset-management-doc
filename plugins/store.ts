@@ -7,7 +7,7 @@ export type Version = {
   version: string;
   iconSystem: Asset[];
   illustrationAsset: Asset[];
-  specialCaseIcons: Asset[];
+  iconSpecialCase: Asset[];
   iconIllustration: Asset[];
 }
 
@@ -42,7 +42,7 @@ const store = createStore<RootState>({
     },
     allSpecialIcons(state) {
       const specialIcons: Array<Asset & { preview: string }> = []
-      const stored = state.versions[state.currentVersionIndex].specialCaseIcons
+      const stored = state.versions[state.currentVersionIndex].iconSpecialCase
       stored.forEach(i => {
         specialIcons.push({ ...i, html: svgResize(i.html, '60px'), preview: svgResize(i.html, '50%') })
       })

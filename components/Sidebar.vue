@@ -6,7 +6,7 @@
     <p class="header">Assets</p>
     <p :class="`subheader ${activeRoute('icon-system') ? 'active' : ''}`" @click="goToPage('icon-system')">Icon System</p>
     <p :class="`subheader ${activeRoute('illustration-asset') ? 'active' : ''}`" @click="goToPage('illustration-asset')">Illustration Asset</p>
-    <p :class="`subheader ${activeRoute('special-case-icon') ? 'active' : ''}`" @click="goToPage('special-case-icon')">Special Icon Case</p>
+    <p :class="`subheader ${activeRoute('icon-special-case') ? 'active' : ''}`" @click="goToPage('icon-special-case')">Icon Special Case</p>
     <p :class="`subheader ${activeRoute('icon-illustration') ? 'active' : ''}`" @click="goToPage('icon-illustration')">Icon Illustration</p>
   </div>
 </template>

@@ -25,9 +25,9 @@
 <script lang="ts">
 import Sidebar from '@/components/Sidebar.vue';
 import Loader from '@/components/Loader.vue';
-import Github from 'talentics-assets/icons/Github.vue'
+import Github from 'talentics-assets/icon-special-case/Github.vue'
 
-import Npm from 'talentics-assets/icons/Npm.vue'
+import Npm from 'talentics-assets/icon-special-case/Npm.vue'
 
 export default {
   name: "Root",

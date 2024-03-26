@@ -99,7 +99,7 @@ export default {
   components: { Modal, Loader },
   props: {
     assetType: {
-      type: String as PropType<'icon-system' | 'illustration-asset' | 'special-case-icons' | 'icon-illustration'>,
+      type: String as PropType<'icon-system' | 'illustration-asset' | 'icon-special-case' | 'icon-illustration'>,
       default: 'icon-system'
     }
   },
@@ -113,7 +113,9 @@ export default {
         case 'illustration-asset':
           return this.$store.getters.allIllustrations as Array<Asset & { preview: string }>
           break;
-        case 'special-case-icons':
+        case 'icon-special-case':
+          console.log("sini");
+          
           return this.$store.getters.allSpecialIcons as Array<Asset & { preview: string }>
           break;
         default:
@@ -142,6 +144,8 @@ export default {
   },
   methods: {
     parseDisplayTagName(tag: string) {
+      console.log(tag, this.assetType.split('-').map(([v]) => v).join(''));
+      
       const parsed = tag.split(`talentics-${this.assetType.split('-').map(([v]) => v).join('')}-`)[1]
       if (parsed.length >= 30) return parsed.slice(0, 27) + '...'
       return parsed
