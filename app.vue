@@ -45,7 +45,6 @@ export default {
   beforeMount() {
     const version = this.$route.query.version || ''
     this.$store.dispatch('validateVersion', { version, redirect: () => this.$router.push(this.$route.path) })
-    this.$store.dispatch('fetchVersion')
   },
   computed: {
     versions() {

@@ -1,5 +1,5 @@
 <template>
-  <Layout asset-type="special-icons" />
+  <Layout asset-type="special-case-icons" />
 </template>
 
 <script lang="ts">

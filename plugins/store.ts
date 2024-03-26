@@ -74,7 +74,9 @@ const store = createStore<RootState>({
     }
   },
   actions: {
-    validateVersion(ctx, payload: { version: string; redirect: () => void }) {
+    async validateVersion(ctx, payload: { version: string; redirect: () => void }) {
+      const { data } = await axios.get(useRuntimeConfig().public.BUCKET_URL as string)
+      ctx.commit('initiateApp', data)
       const { version, redirect } = payload
       if (version) {
         const indexOf = ctx.state.versions.map(v => v.version).indexOf(version)

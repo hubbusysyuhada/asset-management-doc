@@ -1,5 +1,5 @@
 <template>
-  <Layout asset-type="illustrations" />
+  <Layout asset-type="illustration-asset" />
 </template>
 
 <script lang="ts">

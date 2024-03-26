@@ -5,7 +5,7 @@
       <h4>Showing {{ filtered.length }} results</h4>
     </div>
     <div class="card-container">
-      <div :class="`card${assetType === 'illustrations' ? ' lg' : ''}`" v-for="asset in filtered" :key="asset.class" @click="clickAsset(asset.class)">
+      <div :class="`card${assetType === 'illustration-asset' ? ' lg' : ''}`" v-for="asset in filtered" :key="asset.class" @click="clickAsset(asset.class)">
         <div v-html="asset.html" class="preview"></div>
         <div class="class-name">
           <p>{{ parseDisplayTagName(asset.tag) }}</p>
@@ -35,7 +35,7 @@
                 <div class="copy-tooltip"><p ref="copy-text">copy to clipboard</p></div>
               </div>
               <br>
-              <p class="commented-lines">&lt;!-- you could also pass the "size"{{assetType === 'icons' ? ' and "color"' : ''}} attribute to customize the asset --&gt;</p>
+              <p class="commented-lines">&lt;!-- you could also pass the "size"{{assetType === 'icon-system' ? ' and "color"' : ''}} attribute to customize the asset --&gt;</p>
               <div class="syntax-container">
                 <p class="syntax" @click="copyToClipboard(true)">
                   {{ syntax.htmlCustomize }}
@@ -56,7 +56,7 @@
                 <div class="copy-tooltip"><p ref="copy-text">copy to clipboard</p></div>
               </div>
               <br>
-              <p class="commented-lines">&lt;!-- you could also pass the "size"{{assetType === 'icons' ? ' and "color"' : ''}} attribute to customize the asset --&gt;</p>
+              <p class="commented-lines">&lt;!-- you could also pass the "size"{{assetType === 'icon-system' ? ' and "color"' : ''}} attribute to customize the asset --&gt;</p>
               <div class="syntax-container">
                 <p class="syntax" @click="copyToClipboard(true)">
                   {{ syntax.vueTemplateCustomize }}
@@ -99,21 +99,21 @@ export default {
   components: { Modal, Loader },
   props: {
     assetType: {
-      type: String as PropType<'icons' | 'illustrations' | 'special-icons' | 'icon-illustrations'>,
-      default: 'icons'
+      type: String as PropType<'icon-system' | 'illustration-asset' | 'special-case-icons' | 'icon-illustration'>,
+      default: 'icon-system'
     }
   },
   data: (): ComponentDataType => ({ keywords: '', isReady: false, selectedLanguage: 'html', syntax: { html: '', htmlCustomize: '', vueScript: '', vueTemplate: '', vueTemplateCustomize: '' } }),
   computed: {
     allAssets() {
       switch (this.assetType) {
-        case 'icons':
+        case 'icon-system':
           return this.$store.getters.allIcons as Array<Asset & { preview: string }>
           break;
-        case 'illustrations':
+        case 'illustration-asset':
           return this.$store.getters.allIllustrations as Array<Asset & { preview: string }>
           break;
-        case 'special-icons':
+        case 'special-case-icons':
           return this.$store.getters.allSpecialIcons as Array<Asset & { preview: string }>
           break;
         default:
@@ -142,18 +142,18 @@ export default {
   },
   methods: {
     parseDisplayTagName(tag: string) {
-      const parsed = tag.split(`talentics-${this.assetType}-`)[1]
+      const parsed = tag.split(`talentics-${this.assetType.split('-').map(([v]) => v).join('')}-`)[1]
       if (parsed.length >= 30) return parsed.slice(0, 27) + '...'
       return parsed
     },
     clickAsset(className: string) {
-      const query = { ...this.$route.query, class: className }
+      const query = { ...this.$route.query, class: className, version: this.$store.getters.activeVersion.version }
       this.$router.push({ path: this.$route.path, query })
     },
     getAsset(className: string) {
       return this.allAssets.find(i => i.class === className)
     },
-    checkAssets() {
+    checkAssets() {      
       if (this.$route.query.class && !this.getAsset(this.$route.query.class as string)) {
         const query = { ...this.$route.query }
         delete query.class
@@ -168,14 +168,14 @@ export default {
       const q = this.$route.query.class as string
       const assetClass = this.getAsset(q) || {} as Record<string, any>
       if (language === 'vue') {
-        const name = `Talentics${this.assetType === 'icons' ? 'Icon' : 'Illustration'}${assetClass.class}`
+        const name = `Talentics${this.assetType === 'icon-system' ? 'Icon' : 'Illustration'}${assetClass.class}`
         this.syntax.vueTemplate = `<${name} />`
-        this.syntax.vueTemplateCustomize = `<${name} size="24px"${this.assetType === 'icons' ? ' color="#000000"' : ''} />`
+        this.syntax.vueTemplateCustomize = `<${name} size="24px"${this.assetType === 'icon-system' ? ' color="#000000"' : ''} />`
         this.syntax.vueScript = `import ${name} from 'talentics-assets/${this.assetType}/${assetClass.class}.vue'`
       }
       else {
         this.syntax.html = `<${assetClass.tag}></${assetClass.tag}>`
-        this.syntax.htmlCustomize = `<${assetClass.tag} size="24px"${this.assetType === 'icons' ? ' color="#000000"' : ''}></${assetClass.tag}>`
+        this.syntax.htmlCustomize = `<${assetClass.tag} size="24px"${this.assetType === 'icon-system' ? ' color="#000000"' : ''}></${assetClass.tag}>`
       }
     },
     copyToClipboard(isCustom: boolean, isVueScript: boolean = false) {
